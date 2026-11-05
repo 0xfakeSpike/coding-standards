@@ -4,7 +4,7 @@
 
 ## 请求客户端
 
-### 使用统一的请求客户端 【必须】
+### 使用统一的请求客户端 【推荐】
 
 在一处处理 baseURL、鉴权头、超时、HTTP 错误判定和错误转换。组件不直接调用 `fetch` 或 `axios`。响应按 [types.md](../languages/typescript/types.md) 的规则校验。204、202 和部分 201 响应没有响应体，这类接口的 schema 声明为空值。`Location`、`ETag`、`Retry-After` 从返回的 `headers` 读取。用 `{ code, message, data }` 包装的项目在这里解包。
 

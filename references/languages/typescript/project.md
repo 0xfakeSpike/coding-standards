@@ -30,7 +30,7 @@ src/
 
 提交对应的 lock 文件，不混用多种 lock 文件。
 
-### CI 用锁定安装 【必须】
+### CI 用锁定安装 【推荐】
 
 **适用：** 多人协作
 
@@ -114,7 +114,7 @@ Node.js 项目在 `package.json` 写 `"type": "module"`，`module` 用 `nodenext
 
 **来源：** Node.js API 文档、TypeScript 发布说明
 
-### 类型检查是独立步骤 【必须】
+### 类型检查是独立步骤 【推荐】
 
 **适用：** 多人协作
 

@@ -37,7 +37,7 @@ user = repository.find_user(user_id)
 
 **来源：** PEP 8、Google Python Style Guide
 
-### 空值判断用 is 【必须】
+### 空值判断用 is 【推荐】
 
 写 `x is None`、`x is not None`，不写 `x == None`。序列判空用 `if not items:`。默认值为 `None` 的参数必须用 `is None` 判断，因为 `0`、`""`、`[]` 也是假值，不写 `x = x or []`。
 

@@ -192,7 +192,7 @@ UPDATE jobs SET status = 'running', lease_until = ?, attempts = attempts + 1 WHE
 
 ## 可观测性
 
-### 记录任务的完整生命周期 【必须】
+### 记录任务的完整生命周期 【推荐】
 
 **适用：** 线上服务
 

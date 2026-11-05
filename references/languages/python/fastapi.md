@@ -14,7 +14,7 @@
 
 **来源：** FastAPI 文档
 
-### 路由函数只处理 HTTP 【必须】
+### 路由函数只处理 HTTP 【推荐】
 
 路由函数负责解析入参、调用业务函数、返回结果。业务规则放在业务模块，不依赖 `Request`、`HTTPException`。业务层抛领域异常，用 `@app.exception_handler()` 转成响应，不在每个路由写 `try/except`。分层原则见 [layering.md](../../backend/architecture/layering.md)。
 

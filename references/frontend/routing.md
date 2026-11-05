@@ -134,7 +134,7 @@ const reactRoutes = [
 
 ## 滚动恢复
 
-### 后退恢复位置，新页面回到顶部 【必须】
+### 后退恢复位置，新页面回到顶部 【推荐】
 
 单页应用切换路由不会重新加载页面，不处理时新页面停留在上一页的滚动位置。Vue Router 配置 `scrollBehavior`。React Router 在 Framework 和 Data 模式下渲染一个 `<ScrollRestoration />`。
 
@@ -162,7 +162,7 @@ const router = createRouter({
 
 ## 404 和权限页
 
-### 配置兜底的 404 路由 【必须】
+### 配置兜底的 404 路由 【推荐】
 
 Vue Router 用 `/:pathMatch(.*)*`，React Router 用 `path: '*'`，放在布局路由内可保留外壳。使用 History 模式时，服务器要把未知路径回退到入口页面。
 

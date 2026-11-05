@@ -116,7 +116,7 @@ SELECT id, balance FROM accounts WHERE id IN (?, ?) ORDER BY id FOR UPDATE;
 
 ## 长事务
 
-### 监控并限制长事务 【必须】
+### 监控并限制长事务 【推荐】
 
 **适用：** 线上服务
 

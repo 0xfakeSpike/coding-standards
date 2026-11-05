@@ -143,7 +143,7 @@ await fetch('/api/orders', {
 
 **来源：** web.dev 第三方脚本加载、OWASP 第三方 JavaScript 管理速查表
 
-### CDN 脚本配置 SRI 【必须】
+### CDN 脚本配置 SRI 【推荐】
 
 **适用：** 线上服务
 
@@ -175,7 +175,7 @@ await fetch('/api/orders', {
 
 ## Source Map
 
-### Source Map 不公开部署 【必须】
+### Source Map 不公开部署 【推荐】
 
 **适用：** 线上服务
 

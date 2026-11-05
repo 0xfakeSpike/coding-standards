@@ -101,7 +101,7 @@ Pinia 的约束见 [vue.md](vue.md)。
 
 ## 派生状态
 
-### 能推导的值不存储 【必须】
+### 能推导的值不存储 【推荐】
 
 只保存原始数据，总价、过滤结果、是否全选都在读取时计算。高开销的计算要记忆化：Redux 用 `createSelector`，选择器命名为 `selectXxx`；Vue 用 `computed` 或 Pinia getter；React 组件内的写法见 [react.md](react.md)。
 

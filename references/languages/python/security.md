@@ -128,7 +128,7 @@ subprocess.run(["/usr/bin/convert", "--", filename, "out.png"], check=True, time
 
 ## 静态扫描
 
-### CI 运行安全扫描 【必须】
+### CI 运行安全扫描 【推荐】
 
 **适用：** 多人协作
 
@@ -138,7 +138,7 @@ subprocess.run(["/usr/bin/convert", "--", filename, "out.png"], check=True, time
 
 **来源：** Bandit 文档、Ruff 文档
 
-### 依赖漏洞用 pip-audit 扫描 【必须】
+### 依赖漏洞用 pip-audit 扫描 【推荐】
 
 **适用：** 多人协作
 

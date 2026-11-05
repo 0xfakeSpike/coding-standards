@@ -38,7 +38,7 @@
 
 **来源：** TSConfig 参考、TypeScript 手册
 
-### 用 typed lint 预设 【必须】
+### 用 typed lint 预设 【推荐】
 
 **适用：** 多人协作
 
@@ -62,7 +62,7 @@ ESLint 使用 typescript-eslint 的 `recommendedTypeChecked`，团队能接受�
 
 ## 格式
 
-### 格式交给格式化工具 【必须】
+### 格式交给格式化工具 【推荐】
 
 **适用：** 多人协作
 
@@ -72,9 +72,9 @@ ESLint 使用 typescript-eslint 的 `recommendedTypeChecked`，团队能接受�
 
 **来源：** typescript-eslint 文档、Google TypeScript 风格指南
 
-### 代码中不写注释 【必须】
+### 注释只写代码表达不了的原因 【必须】
 
-包括文档注释和解释性注释，对外发布的库的 API 文档和许可证头除外。需要靠注释才能读懂时，改进命名和结构。工具指令不算注释，比如 `@ts-expect-error`、`eslint-disable-next-line`。忽略错误、类型断言、抑制 lint 这类单点取舍，原因就近写一句注释。
+不写复述代码的注释，包括只重复名字和类型的文档注释，对外发布的库的 API 文档和许可证头除外。需要靠注释才能读懂时，改进命名和结构。工具指令不算注释，比如 `@ts-expect-error`、`eslint-disable-next-line`。代码表达不了的原因就近写一句，比如外部系统的限制、反直觉的行为，以及忽略错误、类型断言、抑制 lint 这类单点取舍。
 
 **来源：** 团队
 
@@ -130,7 +130,7 @@ const userById = new Map<string, User>();
 
 顺序统一为：Node 内置模块、第三方包、项目别名、相对路径。内置模块写 `node:` 前缀。排序由 Biome 或 ESLint 插件自动完成，不手工调整。
 
-### 仅类型的导入写 `import type` 【必须】
+### 仅类型的导入写 `import type` 【推荐】
 
 `verbatimModuleSyntax` 下不写 `type` 的导入会保留到运行时。Node.js 类型剥离时，这种写法会变成运行时错误。
 

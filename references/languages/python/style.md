@@ -4,7 +4,7 @@
 
 ## 工具配置
 
-### 用 Ruff 统一格式化和静态检查 【必须】
+### 用 Ruff 统一格式化和静态检查 【推荐】
 
 **适用：** 多人协作
 
@@ -60,9 +60,9 @@ CI 运行 `ruff format --check` 和 `ruff check`，不在 CI 里自动修复。`
 
 **来源：** PEP 8、Ruff 文档
 
-### 代码中不写注释 【必须】
+### 注释只写代码表达不了的原因 【必须】
 
-包括模块、类和函数的 docstring，对外发布的库的 API 文档和许可证头除外。靠命名和结构表达意图。工具指令除外，比如 `# type: ignore[...]`、`# noqa: ...`、`# fmt: off`、`# nosec`。忽略错误、类型断言、抑制 lint 这类单点取舍，原因就近写一句注释。注意事项记入项目文档，见 [principles.md](../../general/principles.md)。
+不写复述代码的注释，包括只重复名字和类型的 docstring，对外发布的库的 API 文档和许可证头除外。靠命名和结构表达意图。工具指令除外，比如 `# type: ignore[...]`、`# noqa: ...`、`# fmt: off`、`# nosec`。代码表达不了的原因就近写一句，比如外部系统的限制、反直觉的行为，以及忽略错误、类型断言、抑制 lint 这类单点取舍。跨多处代码的注意事项记入项目文档，见 [principles.md](../../general/principles.md)。
 
 **工具：** 用 `ERA001` 检查注释掉的代码，用 `FIX` 检查待办注释。
 
@@ -92,7 +92,7 @@ CI 运行 `ruff format --check` 和 `ruff check`，不在 CI 里自动修复。`
 
 字典变量用 `<值>_by_<key>` 命名。名字不重复类型，不写 `user_dict`。
 
-**原因：** 不写注释时，只有名字能告诉读者 key 是什么。
+**原因：** 注释不解释代码在做什么，只有名字能告诉读者 key 是什么。
 
 **示例：**
 
@@ -120,7 +120,7 @@ price_by_sku: dict[str, Decimal] = {"A100": Decimal("9.90")}
 
 **来源：** PEP 8、Google Python Style Guide
 
-### 不用通配导入 【必须】
+### 不用通配导入 【推荐】
 
 不写 `from x import *`。
 

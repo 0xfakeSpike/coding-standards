@@ -146,7 +146,7 @@ async function processAll(items: Item[]) {
 
 ## 缓存
 
-### 带 hash 的资源长期缓存，HTML 每次验证 【必须】
+### 带 hash 的资源长期缓存，HTML 每次验证 【推荐】
 
 **适用：** 线上服务
 
