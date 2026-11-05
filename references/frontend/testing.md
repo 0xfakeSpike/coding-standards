@@ -41,7 +41,7 @@ expect(screen.getByRole('menu')).toBeVisible();
 
 **来源：** Testing Library 文档
 
-### 异步出现的内容用 `findBy` 等待 【必须】
+### 异步出现的内容用 `findBy` 等待 【推荐】
 
 等待元素出现用 `findBy*`，其他条件用 `waitFor`，不写固定时长的等待。
 
@@ -79,7 +79,7 @@ test('加载失败时显示重试入口', async () => {
 
 **来源：** MSW 文档
 
-### 未处理的请求按错误处理 【必须】
+### 未处理的请求按错误处理 【推荐】
 
 未声明的请求让测试失败。默认策略 `warn` 只打印警告，请求仍会发出。`onUnhandledFrame` 需要 MSW 3 及以上，选项名以所用版本文档为准。
 
@@ -93,7 +93,7 @@ test('加载失败时显示重试入口', async () => {
 
 用 Playwright 或 Cypress 覆盖登录、下单这类核心路径。边界情况放到组件测试和集成测试。
 
-### 用定位器和自动等待的断言 【必须】
+### 用定位器和自动等待的断言 【推荐】
 
 用 `getByRole` 这类面向用户的定位器，不依赖 CSS 结构。用会自动重试的断言。不用 `page.waitForTimeout()`。
 
@@ -116,7 +116,7 @@ await expect(page.getByText('保存成功')).toBeVisible();
 
 **来源：** Playwright 文档
 
-### 每个测试相互隔离 【必须】
+### 每个测试相互隔离 【推荐】
 
 每个测试有独立的存储、Cookie 和数据，不依赖其他测试的执行顺序。登录用 setup 项目执行一次，复用保存的状态。状态文件含敏感 Cookie，要加入 `.gitignore`。外部站点和第三方接口不受控，用 `page.route` 返回固定响应。
 

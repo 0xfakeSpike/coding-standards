@@ -2,7 +2,7 @@
 
 ## 类型系统用法
 
-### 不使用 `any`，未知类型用 `unknown` 【必须】
+### 不使用 `any`，未知类型用 `unknown` 【推荐】
 
 `any` 关闭检查并沿调用链扩散。类型未知时用 `unknown`，收窄后再使用。`{}` 同样不用，它表示任意非空值。
 
@@ -12,7 +12,7 @@
 
 **来源：** Google TypeScript 风格指南、typescript-eslint 文档
 
-### 用 `@ts-expect-error`，不用 `@ts-ignore` 【必须】
+### 用 `@ts-expect-error`，不用 `@ts-ignore` 【推荐】
 
 问题修复后 `@ts-expect-error` 会报错提醒删除，`@ts-ignore` 会一直留着。原因写在指令后。
 

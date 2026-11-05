@@ -92,7 +92,7 @@ ALTER TABLE orders ALTER INDEX idx_orders_status INVISIBLE;
 
 ## 执行计划
 
-### 上线前看执行计划 【必须】
+### 上线前看执行计划 【推荐】
 
 **适用：** 线上服务
 
@@ -120,7 +120,7 @@ ROLLBACK;
 
 SQL 一律参数化，见 [input-and-injection.md](../security/input-and-injection.md)。
 
-### 不写 SELECT * 【必须】
+### 不写 SELECT * 【推荐】
 
 生产代码明确列出字段，减少传输，也避免字段变更带来的意外。
 
@@ -130,7 +130,7 @@ SQL 一律参数化，见 [input-and-injection.md](../security/input-and-injecti
 
 大结果集使用分页或流式处理，不一次性载入内存。
 
-### 避免 N+1 查询 【必须】
+### 避免 N+1 查询 【推荐】
 
 **适用：** 线上服务
 

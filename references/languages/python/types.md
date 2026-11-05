@@ -14,7 +14,7 @@
 
 **来源：** Google Python Style Guide、mypy 文档、pyright 文档
 
-### 使用现代写法 【必须】
+### 使用现代写法 【推荐】
 
 写 `list[str]`、`dict[str, int]`、`X | Y`，不写 `List`、`Dict`、`Union`、`Optional`。Python 3.10+。
 
@@ -50,7 +50,7 @@ def notify_owner(notifier: Notifier, owner: str) -> None:
 
 **来源：** Python typing 文档
 
-### 少用 Any、cast 和类型忽略 【必须】
+### 少用 Any、cast 和类型忽略 【推荐】
 
 `Any` 只用于确实无法表达的类型。`cast` 不做运行时检查，只在检查器无法推断时使用。忽略类型错误时写具体错误码，比如 `# type: ignore[no-untyped-call]`，不写裸的 `# type: ignore`。
 
@@ -78,7 +78,7 @@ def notify_owner(notifier: Notifier, owner: str) -> None:
 
 ## 空值
 
-### 可空类型显式写出并先收窄 【必须】
+### 可空类型显式写出并先收窄 【推荐】
 
 默认值为 `None` 时写 `x: int | None = None`，不写 `x: int = None`，PEP 484 已不再推荐隐式可空。使用前先用 `is None` 收窄，不用 `assert` 或 `cast` 绕过检查器。
 

@@ -151,7 +151,7 @@ await execFileAsync('gzip', ['--', fileName], { signal, timeout: gzipTimeoutMs }
 
 **来源：** Node.js 安全最佳实践
 
-### 依赖漏洞纳入 CI 【必须】
+### 依赖漏洞纳入 CI 【推荐】
 
 **适用：** 多人协作
 

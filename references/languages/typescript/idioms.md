@@ -24,7 +24,7 @@ const user = await userRepository.findById(id);
 
 **来源：** 团队
 
-### 默认 `const`，不用 `var` 【必须】
+### 默认 `const`，不用 `var` 【推荐】
 
 需要重新赋值时才用 `let`。每条声明只声明一个变量。
 
@@ -32,7 +32,7 @@ const user = await userRepository.findById(id);
 
 **来源：** Google TypeScript 风格指南
 
-### 使用 `===` 和 `!==` 【必须】
+### 使用 `===` 和 `!==` 【推荐】
 
 `==` 的隐式转换难以预测。例外见 [types.md](types.md) 的空值判断。
 

@@ -85,7 +85,7 @@ channel 适合转移数据所有权和发信号，计数器、缓存这类状态
 
 ## 取消与超时
 
-### ctx 作为第一个参数，不放进结构体 【必须】
+### ctx 作为第一个参数，不放进结构体 【推荐】
 
 函数签名写 `func F(ctx context.Context, ...)`，不用自定义 Context 类型，不传 nil，不确定时用 `context.TODO()`。HTTP Handler 用 `r.Context()`，测试用 `t.Context()`（Go 1.24+）。
 
@@ -171,7 +171,7 @@ Go 1.25+ 在 Linux 上默认按 cgroup CPU 限制设置，并在限制变化时�
 
 ## 常见竞态
 
-### CI 运行 go test -race 【必须】
+### CI 运行 go test -race 【推荐】
 
 **适用：** 多人协作
 

@@ -381,8 +381,20 @@
 | web.dev 长任务优化 | https://web.dev/articles/optimize-long-tasks | 2024-12-19 | 页面未读到，旧仓库 LICENSE 为 CC BY 3.0 |
 | web.dev 长列表虚拟化 | https://web.dev/articles/virtualize-long-lists-react-window | 页面未标明 | 页面未读到，旧仓库 LICENSE 为 CC BY 3.0 |
 
+## 复查
+
+规则按来源的变化速度定期核对，过时的内容直接更新，并修改本表的日期。框架或语言发布大版本时不等周期，立即核对受影响的文件。
+
+| 范围 | 文件 | 周期 | 上次核对 |
+|---|---|---|---|
+| 前端框架 | `frontend/react.md`、`frontend/vue.md`、`frontend/nextjs.md`、`frontend/nuxt.md` | 每季度 | 2026-11-05 |
+| AI 应用 | `backend/ai/` | 每季度 | 2026-11-05 |
+| 语言和运行时 | `languages/` | 每半年 | 2026-11-05 |
+| 安全和隐私 | `backend/security/`、`frontend/security.md` | 每半年 | 2026-11-05 |
+| 其余规则 | 其他文件 | 每年 | 2026-11-05 |
+
 ## 使用限制
 
 - 许可证为“未找到”或“未核对”的资料，以及禁止演绎、禁止商用或保留所有权利的资料，比如 Google SRE、Redis、Elasticsearch、microservices.io，只吸收其中的思想，不复制文字和结构。
 - 新增来源时，先核对原文、版本和许可证，再写入本表。
-- 公开资料与团队规则冲突时，按团队规则执行。例如 Google 评审规范鼓励用注释解释代码，团队规则是不写注释。
+- 公开资料与团队规则冲突时，按团队规则执行。例如 Go 惯例要求导出标识符都有文档注释，团队规则是不强制。

@@ -172,7 +172,7 @@ cmd := exec.CommandContext(ctx, "convert", "--", name, "out.png")
 
 ## 静态扫描
 
-### CI 运行 govulncheck 【必须】
+### CI 运行 govulncheck 【推荐】
 
 **适用：** 多人协作
 
@@ -182,7 +182,7 @@ cmd := exec.CommandContext(ctx, "convert", "--", name, "out.png")
 
 **来源：** govulncheck 教程、Go 安全最佳实践
 
-### CI 运行 gosec 【必须】
+### CI 运行 gosec 【推荐】
 
 **适用：** 多人协作
 

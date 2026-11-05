@@ -4,7 +4,7 @@
 
 ## 工具配置
 
-### 用 gofmt 和 goimports 格式化 【必须】
+### 用 gofmt 和 goimports 格式化 【推荐】
 
 **适用：** 多人协作
 
@@ -14,7 +14,7 @@
 
 **来源：** Go Code Review Comments、Effective Go
 
-### 静态检查进入门禁 【必须】
+### 静态检查进入门禁 【推荐】
 
 **适用：** 多人协作
 
@@ -24,7 +24,7 @@ CI 运行 `go vet ./...` 和 `golangci-lint run`，后者至少包含 `staticche
 
 ### 关闭文档注释类规则 【必须】
 
-Go 惯例要求导出标识符有文档注释，团队规则是不写注释，以团队规则为准。对外发布的库保留文档注释和这些检查。`revive` 的 `exported`、`package-comments` 要关闭，`staticcheck` 的 ST1000、ST1020、ST1021、ST1022 不启用。还在用 `golint` 的项目直接移除，由 `revive` 代替。显式配置任一 `revive` 规则后默认规则会失效，所以要同时打开 `enable-default-rules`，配置项以所用 golangci-lint 版本文档为准。
+Go 惯例要求导出标识符都有文档注释，团队规则是不强制，以团队规则为准。对外发布的库保留文档注释和这些检查。`revive` 的 `exported`、`package-comments` 要关闭，`staticcheck` 的 ST1000、ST1020、ST1021、ST1022 不启用。还在用 `golint` 的项目直接移除，由 `revive` 代替。显式配置任一 `revive` 规则后默认规则会失效，所以要同时打开 `enable-default-rules`，配置项以所用 golangci-lint 版本文档为准。
 
 **示例：**
 
@@ -62,9 +62,9 @@ formatters:
 
 ## 格式
 
-### 代码中不写注释 【必须】
+### 注释只写代码表达不了的原因 【必须】
 
-包括导出标识符和包声明，对外发布的库的 API 文档和许可证头除外。工具指令除外，比如 `//go:build`、`//go:generate`、`//go:embed`、`//nolint`、`// Deprecated:`。忽略错误、类型断言、抑制 lint 这类单点取舍，原因就近写一句注释。需要记录的注意事项放在项目文档。
+不写复述代码的注释，包括只重复名字和签名的文档注释，对外发布的库的 API 文档和许可证头除外。工具指令除外，比如 `//go:build`、`//go:generate`、`//go:embed`、`//nolint`、`// Deprecated:`。代码表达不了的原因就近写一句，比如外部系统的限制、反直觉的行为，以及忽略错误、类型断言、抑制 lint 这类单点取舍。导出标识符有名字和签名表达不了的约束时，写在它的文档注释里。跨多处代码的注意事项放在项目文档。
 
 **来源：** 团队
 
