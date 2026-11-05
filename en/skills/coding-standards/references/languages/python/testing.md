@@ -151,7 +151,7 @@ Code that needs controllable time takes a parameter such as `now: Callable[[], d
 
 ### Separate integration tests with a marker [Recommended]
 
-Mark integration tests with `@pytest.mark.integration` and register the marker in configuration. At commit time, you may skip them with `pytest -m "not integration"`. Before merging, the full suite must run.
+Mark integration tests with `@pytest.mark.integration` and register the marker in configuration. At commit time, you may skip them with `pytest -m "not integration"`. Run the full suite before merging.
 
 **Source:** pytest Docs
 

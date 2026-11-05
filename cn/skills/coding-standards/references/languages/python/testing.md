@@ -151,7 +151,7 @@ gateway = create_autospec(PaymentGateway, instance=True)
 
 ### 用 marker 区分集成测试 【推荐】
 
-集成测试标记 `@pytest.mark.integration`，并在配置中注册。提交阶段可以用 `pytest -m "not integration"` 跳过，合并前必须全量运行。
+集成测试标记 `@pytest.mark.integration`，并在配置中注册。提交阶段可以用 `pytest -m "not integration"` 跳过，合并前全量运行。
 
 **来源：** pytest 文档
 

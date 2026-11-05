@@ -28,7 +28,7 @@ HTTP、数据库和消息等常见操作使用语义约定中已有的属性名�
 
 ### 跨服务调用传递上下文 【推荐】
 
-`traceId` 必须贯穿调用链。默认使用 W3C Trace Context 的 `traceparent` 和 `tracestate` 头。所有中间层都要转发，否则链路会断开。
+让 `traceId` 贯穿调用链。默认使用 W3C Trace Context 的 `traceparent` 和 `tracestate` 头。所有中间层都要转发，否则链路会断开。
 
 **示例：**
 

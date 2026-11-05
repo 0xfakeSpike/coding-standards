@@ -118,7 +118,7 @@ Node.js 项目在 `package.json` 写 `"type": "module"`，`module` 用 `nodenext
 
 **适用：** 多人协作
 
-esbuild、tsx 和 Node.js 类型剥离都不检查类型。CI 必须单独运行 `tsc --noEmit`，范围包含测试文件。使用这类工具时开启 `verbatimModuleSyntax` 或 `isolatedModules`，让编译器报告单文件转译处理不了的写法。
+esbuild、tsx 和 Node.js 类型剥离都不检查类型。CI 单独运行 `tsc --noEmit`，范围包含测试文件。使用这类工具时开启 `verbatimModuleSyntax` 或 `isolatedModules`，让编译器报告单文件转译处理不了的写法。
 
 **来源：** TSConfig 参考、Node.js API 文档
 
