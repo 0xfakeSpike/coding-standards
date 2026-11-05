@@ -28,7 +28,7 @@ For common operations such as HTTP, database, and messaging, use the attribute n
 
 ### Pass context across service calls [Recommended]
 
-`traceId` must run through the whole call chain. Use the W3C Trace Context `traceparent` and `tracestate` headers by default. Every intermediate layer must forward them, or the trace breaks.
+Carry `traceId` through the whole call chain. Use the W3C Trace Context `traceparent` and `tracestate` headers by default. Every intermediate layer needs to forward them, or the trace breaks.
 
 **Example:**
 

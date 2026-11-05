@@ -118,7 +118,7 @@ Loading ESM with `require()` needs runtime support. The loaded module and its de
 
 **Applies to:** team project
 
-esbuild, tsx, and Node.js type stripping do not check types. CI must run `tsc --noEmit` separately, covering test files. When using these tools, enable `verbatimModuleSyntax` or `isolatedModules` so the compiler reports syntax that single-file transpilation cannot handle.
+esbuild, tsx, and Node.js type stripping do not check types. Run `tsc --noEmit` separately in CI, covering test files. When using these tools, enable `verbatimModuleSyntax` or `isolatedModules` so the compiler reports syntax that single-file transpilation cannot handle.
 
 **Source:** TSConfig Reference, Node.js API Docs
 

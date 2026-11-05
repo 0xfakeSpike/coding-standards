@@ -17,6 +17,8 @@ Use a maintained cryptography library. Do not implement algorithms or protocols 
 | Public-key encryption | HPKE, or RSA-OAEP | RSA PKCS#1 v1.5 encryption |
 | Key derivation | HKDF, and a password hashing algorithm for deriving from passwords | KDFs based on MD5 or SHA-1 |
 
+Use 3072 bits or more for new RSA keys. Existing 2048-bit keys may stay in use, but migrate them by the end of 2030.
+
 **Why:** A secure algorithm does not mean a secure implementation. Homegrown implementations rarely avoid side channels and misuse.
 
 **Source:** OWASP Cryptographic Storage Cheat Sheet, OWASP ASVS
