@@ -129,6 +129,8 @@ The retry schedule spans several days and adds random jitter.
 | 5 hours | About 7.5 hours |
 | 10 hours | About 17.5 hours |
 | 14 hours | About 31.5 hours |
+| 20 hours | About 51.5 hours |
+| 24 hours | About 75.5 hours |
 
 **Source:** Standard Webhooks
 

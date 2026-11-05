@@ -93,7 +93,7 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 
 ### Use yield dependencies for resources that need cleanup [Required]
 
-Create the resource before `yield` and release it with `try/finally`. After catching an exception in a dependency, you must re-raise it. Otherwise FastAPI does not see the error and the server leaves no record.
+Create the resource before `yield` and release it with `try/finally` or `with`. After catching an exception in a dependency, you must re-raise it. Otherwise FastAPI does not see the error and the server leaves no record.
 
 **Example:**
 
