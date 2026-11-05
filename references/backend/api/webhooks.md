@@ -129,6 +129,8 @@ webhook-signature: v1,K5oZfzN95Z9UVu1EsfQmfVNQhnkZ2pj9o9NDN/H/pI4=
 | 5 小时 | 约 7.5 小时 |
 | 10 小时 | 约 17.5 小时 |
 | 14 小时 | 约 31.5 小时 |
+| 20 小时 | 约 51.5 小时 |
+| 24 小时 | 约 75.5 小时 |
 
 **来源：** Standard Webhooks
 

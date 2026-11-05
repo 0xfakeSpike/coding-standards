@@ -165,7 +165,7 @@ Use a maintained URL parser, and compare the scheme, canonicalized host, and por
 
 **Source:** OWASP HTTP Headers Cheat Sheet, OWASP ASVS
 
-### Set both `frame-ancestors` and `X-Frame-Options` [Required]
+### Use `frame-ancestors` and `X-Frame-Options` against clickjacking [Required]
 
 **Applies to:** production service
 

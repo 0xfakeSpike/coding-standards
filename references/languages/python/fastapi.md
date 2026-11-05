@@ -93,7 +93,7 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 
 ### 需要清理的资源用 yield 依赖 【必须】
 
-资源在 `yield` 前创建，用 `try/finally` 释放。依赖里捕获异常后必须重新抛出，否则 FastAPI 感知不到错误，服务端也不留记录。
+资源在 `yield` 前创建，用 `try/finally` 或 `with` 释放。依赖里捕获异常后必须重新抛出，否则 FastAPI 感知不到错误，服务端也不留记录。
 
 **示例：**
 

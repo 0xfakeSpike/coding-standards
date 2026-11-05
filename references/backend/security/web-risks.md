@@ -165,7 +165,7 @@ GET /login?next=orders HTTP/1.1
 
 **来源：** OWASP HTTP 响应头速查表、OWASP ASVS
 
-### 同时设置 `frame-ancestors` 和 `X-Frame-Options` 【必须】
+### 用 `frame-ancestors` 和 `X-Frame-Options` 防点击劫持 【必须】
 
 **适用：** 线上服务
 

@@ -133,7 +133,7 @@ Before extracting, check the total decompressed size and file count. While extra
 
 **Source:** OWASP ASVS, OWASP File Upload Cheat Sheet
 
-### Ignore paths inside the archive when extracting [Required]
+### Validate paths inside the archive when extracting [Required]
 
 Treat paths inside the archive as untrusted. Canonicalize them and confirm they are inside the target directory, otherwise reject them (Zip Slip). Do not accept symbolic links. Extract to an isolated temporary directory, and validate the type of each file there before use.
 

@@ -111,7 +111,7 @@ For algorithm order and parameters, see [authentication.md](../../backend/securi
 
 ### Validate parsed results [Required]
 
-`JSON.parse` returns `any`, and the `__proto__` it creates is an own property, which can reach the prototype during a later `Object.assign` or spread merge. Validate with a schema right after parsing and reject extra fields, for example with Zod's `z.strictObject`.
+`JSON.parse` returns `any`, and the `__proto__` it creates is an own property. A later `Object.assign` replaces the target object's prototype, and an unguarded recursive merge pollutes the global prototype. Validate with a schema right after parsing and reject extra fields, for example with Zod's `z.strictObject`.
 
 **Source:** Node.js Security Best Practices, MDN
 

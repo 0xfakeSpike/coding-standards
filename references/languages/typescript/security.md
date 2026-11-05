@@ -111,7 +111,7 @@ const resetToken = randomUUID();
 
 ### 解析结果必须校验 【必须】
 
-`JSON.parse` 返回 `any`，它创建的 `__proto__` 是自有属性，随后 `Object.assign` 或展开合并时可能进入原型。解析后立即用 schema 校验，拒绝多余字段，比如 Zod 的 `z.strictObject`。
+`JSON.parse` 返回 `any`，它创建的 `__proto__` 是自有属性。随后 `Object.assign` 会改掉目标对象的原型，未做防护的递归合并会污染全局原型。解析后立即用 schema 校验，拒绝多余字段，比如 Zod 的 `z.strictObject`。
 
 **来源：** Node.js 安全最佳实践、MDN
 
