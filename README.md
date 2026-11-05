@@ -18,35 +18,32 @@ A Claude Code skill that makes your agent write and review code by an opinionate
 
 ## Install
 
-The rules come in two editions with the same layout: `cn/` (Chinese) and `en/` (English). Install one of them, because both use the skill name `coding-standards`.
+The rules come in two editions with the same layout. Install one of them.
 
-Clone the repository outside your skills folder:
+| Edition | Plugin |
+|---|---|
+| Chinese | `coding-standards-cn` |
+| English | `coding-standards-en` |
 
-```bash
-git clone https://github.com/0xfakeSpike/coding-standards.git ~/.claude/coding-standards
+In Claude Code, add this repository as a marketplace, then install the edition you want:
+
+```text
+/plugin marketplace add 0xfakeSpike/coding-standards
 ```
 
-Then link one edition as the skill. For all your projects:
+```text
+/plugin install coding-standards-cn@coding-standards
+```
+
+Marketplaces like this one do not update automatically. To get new rules, run these from your terminal:
 
 ```bash
-mkdir -p ~/.claude/skills
+claude plugin marketplace update coding-standards
 ```
 
 ```bash
-ln -s ~/.claude/coding-standards/cn ~/.claude/skills/coding-standards
+claude plugin update coding-standards-cn@coding-standards
 ```
-
-For one project, run this from the project root:
-
-```bash
-mkdir -p .claude/skills
-```
-
-```bash
-ln -s ~/.claude/coding-standards/cn .claude/skills/coding-standards
-```
-
-For the English edition, replace `cn` with `en`.
 
 Start a new session afterwards. The skill loads when the agent writes, changes, debugs or reviews code.
 
@@ -54,7 +51,7 @@ Start a new session afterwards. The skill loads when the agent writes, changes, 
 
 ## What's inside
 
-Each edition has the same files. Paths below are relative to `cn/` or `en/`.
+Each edition has the same files. Paths below are relative to `cn/skills/coding-standards/` or `en/skills/coding-standards/`.
 
 | Layer | Path | Covers |
 |---|---|---|
@@ -92,7 +89,7 @@ These rules are for writing better code. They do not replace your own security, 
 
 ## Sources
 
-Public references are listed in [cn/references/SOURCES.md](cn/references/SOURCES.md) and [en/references/SOURCES.md](en/references/SOURCES.md). Rules are distilled and rewritten, not copied. The referenced materials remain under their own licenses.
+Public references are listed in `SOURCES.md` ([Chinese](cn/skills/coding-standards/references/SOURCES.md), [English](en/skills/coding-standards/references/SOURCES.md)). Rules are distilled and rewritten, not copied. The referenced materials remain under their own licenses.
 
 ## License
 

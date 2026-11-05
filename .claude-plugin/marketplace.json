@@ -1,0 +1,21 @@
+{
+  "name": "coding-standards",
+  "description": "An opinionated set of engineering standards for writing and reviewing code, in Chinese and English.",
+  "owner": {
+    "name": "0xfakeSpike"
+  },
+  "plugins": [
+    {
+      "name": "coding-standards-cn",
+      "source": "./cn",
+      "description": "An opinionated set of engineering standards for writing and reviewing code. Chinese edition.",
+      "license": "MIT"
+    },
+    {
+      "name": "coding-standards-en",
+      "source": "./en",
+      "description": "An opinionated set of engineering standards for writing and reviewing code. English edition.",
+      "license": "MIT"
+    }
+  ]
+}
