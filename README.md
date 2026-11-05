@@ -1,6 +1,6 @@
 # coding-standards
 
-> Your agent took our jobs. Now it's the AI's turn to suffer.
+> Now it's the AI's turn to suffer.
 >
 > AI 抢了老程序员的饭碗，但得按老程序员的规矩写代码。
 
