@@ -18,49 +18,43 @@ A Claude Code skill that makes your agent write and review code by an opinionate
 
 ## Install
 
-The repository root is the Chinese edition. The English edition lives in `en/`. Install one of them, because both use the skill name `coding-standards`.
+The rules come in two editions with the same layout: `cn/` (Chinese) and `en/` (English). Install one of them, because both use the skill name `coding-standards`.
 
-### Chinese
-
-For all your projects:
-
-```bash
-git clone https://github.com/0xfakeSpike/coding-standards.git ~/.claude/skills/coding-standards
-```
-
-For one project, run this from the project root:
-
-```bash
-git clone https://github.com/0xfakeSpike/coding-standards.git .claude/skills/coding-standards
-```
-
-### English
-
-Clone the repository anywhere, then link `en/` as the skill.
-
-For all your projects:
+Clone the repository outside your skills folder:
 
 ```bash
 git clone https://github.com/0xfakeSpike/coding-standards.git ~/.claude/coding-standards
 ```
 
-```bash
-ln -s ~/.claude/coding-standards/en ~/.claude/skills/coding-standards
-```
-
-For one project, run the link step from the project root:
+Then link one edition as the skill. For all your projects:
 
 ```bash
-ln -s ~/.claude/coding-standards/en .claude/skills/coding-standards
+mkdir -p ~/.claude/skills
 ```
 
-### After installing
+```bash
+ln -s ~/.claude/coding-standards/cn ~/.claude/skills/coding-standards
+```
+
+For one project, run this from the project root:
+
+```bash
+mkdir -p .claude/skills
+```
+
+```bash
+ln -s ~/.claude/coding-standards/cn .claude/skills/coding-standards
+```
+
+For the English edition, replace `cn` with `en`.
 
 Start a new session afterwards. The skill loads when the agent writes, changes, debugs or reviews code.
 
 安装后新开一个会话。agent 写代码、改代码、排查问题或审查代码时会自动使用。
 
 ## What's inside
+
+Each edition has the same files. Paths below are relative to `cn/` or `en/`.
 
 | Layer | Path | Covers |
 |---|---|---|
@@ -71,8 +65,6 @@ Start a new session afterwards. The skill loads when the agent writes, changes, 
 | General | `references/general/` | Design, naming, errors, refactoring, testing, Git, CI/CD, containers, releases |
 
 The agent reads `SKILL.md` first, then only the files it needs.
-
-The English edition has the same layout under `en/`, with the same file names.
 
 ## How rules work
 
@@ -100,7 +92,7 @@ These rules are for writing better code. They do not replace your own security, 
 
 ## Sources
 
-Public references are listed in [references/SOURCES.md](references/SOURCES.md) ([English](en/references/SOURCES.md)). Rules are distilled and rewritten, not copied. The referenced materials remain under their own licenses.
+Public references are listed in [cn/references/SOURCES.md](cn/references/SOURCES.md) and [en/references/SOURCES.md](en/references/SOURCES.md). Rules are distilled and rewritten, not copied. The referenced materials remain under their own licenses.
 
 ## License
 
