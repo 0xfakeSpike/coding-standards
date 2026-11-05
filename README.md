@@ -1,8 +1,6 @@
 # coding-standards
 
 > Now it's the AI's turn to suffer.
->
-> AI 抢了老程序员的饭碗，但得按老程序员的规矩写代码。
 
 A Claude Code skill that makes your agent write and review code by an opinionated set of engineering standards. The rules are written in Chinese.
 
