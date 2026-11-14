@@ -81,9 +81,23 @@ Backend:
 - Logs must not contain sensitive information such as passwords, tokens, or full ID numbers.
 - Keep business logic out of the database.
 
+## Review workflow
+
+When the user asks for a review against these standards, follow these steps. The longer the context, the more problems get missed, so review in slices: first collect candidate problems, then verify them one by one.
+
+1. **Slice the change.** Look at the list of changes first, and split it into slices by module or layer. A small change in one module needs only one slice. Split when the change is over about 500 lines or spans several modules. For a high-risk change, add one more slice for a dedicated security review.
+2. **Collect candidates slice by slice.** For each slice, read only that slice's code and the rule files that relate to it directly. Do not read every rule file first and then all the code. Note everything suspicious, with `path:line`, the suspected problem, and the matching rule. At this step, prefer too many over too few, and do not draw conclusions yet.
+   - If you can use subagents, give each slice to one subagent with only that slice's files and rule file paths, and have it return a candidate list.
+   - If you cannot, work through the slices in order. Write the candidate list down as you go, in a scratch file if needed, instead of relying on memory of code you read earlier.
+3. **Verify each candidate.** For each candidate, reopen the relevant code and the rule text, and check callers and context when needed:
+   - Keep it if you can state what triggers it and what the consequence is.
+   - Drop it if the context rules it out, for example because input is validated elsewhere or the path is unreachable.
+   - List it under Needs confirmation if information is missing, and say what is missing.
+4. **Finish with the baseline rules.** Go over the whole change once more against the baseline rules above, and add anything missed.
+
 ## Review output format
 
-When the user asks for a review against these standards, give the conclusion first, then list findings from most to least severe:
+Give the conclusion first, then list findings from most to least severe:
 
 ```markdown
 ## Review conclusion
@@ -98,8 +112,11 @@ A one-sentence summary, with the number of must-fix and should-fix items.
 ## Should fix
 (Same format as above)
 
+## Needs confirmation
+(Optional.) `path:line`: the suspected problem, and what information is missing to decide
+
 ## Done well
 (Optional. List only practices worth keeping.)
 ```
 
-Report only real problems. If a formatter can fix a formatting issue automatically, merge those issues into one item and recommend adopting the tool instead of listing them line by line.
+Report only problems that survived verification. If a formatter can fix a formatting issue automatically, merge those issues into one item and recommend adopting the tool instead of listing them line by line.
