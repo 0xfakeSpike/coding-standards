@@ -8,6 +8,12 @@ on: pull_request
 permissions:
   contents: read
 
+# Without an explicit shell, Actions runs bash without pipefail, so a failing
+# check piped into tee would still pass. shell: bash adds -o pipefail.
+defaults:
+  run:
+    shell: bash
+
 jobs:
   # The project's own checks run in a separate job with no secrets, because
   # they execute the PR's code. The review job only reads their output.
