@@ -1,5 +1,5 @@
-# Copy to .github/workflows/ in your project, then make the "review" job a
-# required status check in branch protection.
+# Copy to .github/workflows/ in your project, then make the "checks" and
+# "review" jobs required status checks in branch protection.
 # Uses the Chinese edition. For English, install coding-standards-en instead.
 name: standards-review
 
@@ -9,7 +9,27 @@ permissions:
   contents: read
 
 jobs:
+  # The project's own checks run in a separate job with no secrets, because
+  # they execute the PR's code. The review job only reads their output.
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Replace with your project's own checks, for example:
+      #   Go:         go vet ./... && go test ./...
+      #   TypeScript: npm ci && npm run lint && npm test
+      #   Python:     pip install -e '.[dev]' && ruff check . && pytest
+      - name: Project checks
+        run: make check 2>&1 | tee checks.log
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: checks-log
+          path: checks.log
+
   review:
+    needs: checks
     runs-on: ubuntu-latest
     # Start in advisory mode: uncomment to report without blocking, and remove
     # once the false-positive rate is acceptable.
@@ -19,18 +39,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: checks-log
+
       - run: npm install -g @anthropic-ai/claude-code
 
       - run: |
           claude plugin marketplace add 0xfakeSpike/coding-standards
           claude plugin install coding-standards-cn@coding-standards
 
+      # --setting-sources user and --strict-mcp-config keep the PR from adding
+      # hooks or MCP servers to this job through the project's .claude/ files.
       - name: Review against coding-standards
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           BASE_REF: ${{ github.base_ref }}
         run: |
-          claude -p "使用 coding-standards skill，以门禁模式审查 git diff origin/$BASE_REF...HEAD 的改动。" \
+          claude -p "使用 coding-standards skill，以门禁模式审查 git diff origin/$BASE_REF...HEAD 的改动。项目检查已通过，输出在 checks.log。" \
+            --setting-sources user --strict-mcp-config \
             --allowedTools "Skill,Read,Grep,Glob,Bash(git diff:*),Bash(git log:*),Bash(git show:*)" \
             > review.md
           cat review.md >> "$GITHUB_STEP_SUMMARY"
