@@ -86,13 +86,15 @@ Security baselines in `SKILL.md` are not overridden by project conventions.
 The skill guides the agent, but on its own it does not block anything. To make it a gate on pull requests:
 
 1. **Check what tools can check first.** Secrets, ignored errors, SQL built from strings, missing timeouts and formatting are better caught by linters, formatters and scanners such as gitleaks, golangci-lint, ruff, ESLint and semgrep. They are stable and cheap. The AI review covers what they cannot, such as design, responsibilities and needless wrappers.
-2. **Declare the project's scenarios.** Say in the project's `CLAUDE.md` which of team project, production service and high risk apply. In gate mode the agent does not guess them.
-3. **Run the review in CI.** Copy [examples/standards-review.yml](examples/standards-review.yml) to `.github/workflows/` and add an `ANTHROPIC_API_KEY` secret. It asks for a review in gate mode, which ends with a `GATE: PASS`, `GATE: FAIL` or `GATE: ERROR` line, and fails the job unless the result is PASS. Only Must fix items block.
-4. **Make it required.** Mark the job as a required status check in branch protection. Start with `continue-on-error: true` for a few weeks, check the false positives, then remove it.
+2. **Declare the project's scenarios.** Say in the project's `CLAUDE.md` which of team project, production service and high risk apply. In gate mode the agent does not guess them, and without the declaration no rule with an `**Applies to:**` field can block.
+3. **Run the review in CI.** Copy [examples/standards-review.yml](examples/standards-review.yml) to `.github/workflows/`, replace `make check` with your project's own checks, and add an `ANTHROPIC_API_KEY` secret. The `checks` job runs your tests and linters. The `review` job then asks for a review in gate mode, which ends with a `GATE: PASS`, `GATE: FAIL` or `GATE: ERROR` line, and fails unless the result is PASS. Only Must fix items block.
+4. **Make it required.** Mark both jobs as required status checks in branch protection. Start with `continue-on-error: true` on the review job for a few weeks, check the false positives, then remove it.
 
-An AI review is not deterministic, and the code it reviews can try to talk it into passing. Keep security checks in the tools from step 1, and give the review job no write access or extra secrets.
+The review job cannot run tests itself. Tests execute the PR's code, and in that job the code could read the API key. So the checks run in their own job without secrets, and the review reads their output from `checks.log`. A candidate that needs running code to confirm and that the output does not settle goes under Needs confirmation, which does not block.
 
-要把它当作 PR 的质量门禁：先用工具检查能自动查的问题，在项目 `CLAUDE.md` 里声明适用场景，再把示例 workflow 加进 CI 并设为必需检查。
+An AI review is not deterministic, and the code it reviews can try to talk it into passing. Keep security checks in the tools from step 1, and give the review job no write access or extra secrets. The example also loads only user settings (`--setting-sources user`, `--strict-mcp-config`), so a PR cannot add hooks or MCP servers to the review through `.claude/` files.
+
+要把它当作 PR 的质量门禁：先用工具检查能自动查的问题，在项目 `CLAUDE.md` 里声明适用场景，再把示例 workflow 加进 CI 并设为必需检查。示例里项目自己的检查在单独的 job 里先跑，审查只读它的输出。
 
 ## Make it yours
 
