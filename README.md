@@ -83,6 +83,21 @@ Security baselines in `SKILL.md` are not overridden by project conventions.
 
 ## Use it as a quality gate
 
+> [!IMPORTANT]
+> **A gate review is narrower than a review in Claude. It does not replace one.**
+>
+> | | Gate in CI | In Claude |
+> |---|---|---|
+> | Job | Pass or fail a merge | Write, change, debug and review |
+> | Scope | This diff only | The whole project, existing problems too |
+> | Verifying | Reads code and the checks log. Cannot run code, read dependency sources or ask you | Runs tests, reads dependency sources, asks you |
+> | Trusts | Only what the repository declares. The PR is untrusted | Your repository, your context and memory |
+> | Blocks on | Verified [Required] findings in the diff | Nothing. You decide |
+>
+> The gate stops clear defects at merge and sends what it cannot verify to Needs confirmation. A pass means no verified hard defect, not that the change follows the standards. Deep reviews and large changes still belong in Claude.
+>
+> 门禁只负责在合入前拦下明确的硬伤，代替不了在 Claude 里的审查。门禁通过只说明没有核实过的硬伤，不代表改动符合规范。
+
 The skill guides the agent, but on its own it does not block anything. To make it a gate on pull requests:
 
 1. **Check what tools can check first.** Secrets, ignored errors, SQL built from strings, missing timeouts and formatting are better caught by linters, formatters and scanners such as gitleaks, golangci-lint, ruff, ESLint and semgrep. They are stable and cheap. The AI review covers what they cannot, such as design, responsibilities and needless wrappers.
