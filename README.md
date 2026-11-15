@@ -81,6 +81,19 @@ user instructions > project conventions > team rules > language > domain > gener
 
 Security baselines in `SKILL.md` are not overridden by project conventions.
 
+## Use it as a quality gate
+
+The skill guides the agent, but on its own it does not block anything. To make it a gate on pull requests:
+
+1. **Check what tools can check first.** Secrets, ignored errors, SQL built from strings, missing timeouts and formatting are better caught by linters, formatters and scanners such as gitleaks, golangci-lint, ruff, ESLint and semgrep. They are stable and cheap. The AI review covers what they cannot, such as design, responsibilities and needless wrappers.
+2. **Declare the project's scenarios.** Say in the project's `CLAUDE.md` which of team project, production service and high risk apply. In gate mode the agent does not guess them.
+3. **Run the review in CI.** Copy [examples/standards-review.yml](examples/standards-review.yml) to `.github/workflows/` and add an `ANTHROPIC_API_KEY` secret. It asks for a review in gate mode, which ends with a `GATE: PASS`, `GATE: FAIL` or `GATE: ERROR` line, and fails the job unless the result is PASS. Only Must fix items block.
+4. **Make it required.** Mark the job as a required status check in branch protection. Start with `continue-on-error: true` for a few weeks, check the false positives, then remove it.
+
+An AI review is not deterministic, and the code it reviews can try to talk it into passing. Keep security checks in the tools from step 1, and give the review job no write access or extra secrets.
+
+要把它当作 PR 的质量门禁：先用工具检查能自动查的问题，在项目 `CLAUDE.md` 里声明适用场景，再把示例 workflow 加进 CI 并设为必需检查。
+
 ## Make it yours
 
 The rules marked `**来源：** 团队` (`**Source:** Team` in English) are one team's opinions, such as keeping comments to the why. Fork it and change what doesn't fit. A project's own documented conventions take priority anyway.
