@@ -1,0 +1,37 @@
+# Copy to .github/workflows/ in your project, then make the "review" job a
+# required status check in branch protection.
+# Uses the Chinese edition. For English, install coding-standards-en instead.
+name: standards-review
+
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    # Start in advisory mode: uncomment to report without blocking, and remove
+    # once the false-positive rate is acceptable.
+    # continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - run: npm install -g @anthropic-ai/claude-code
+
+      - run: |
+          claude plugin marketplace add 0xfakeSpike/coding-standards
+          claude plugin install coding-standards-cn@coding-standards
+
+      - name: Review against coding-standards
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          claude -p "使用 coding-standards skill，以门禁模式审查 git diff origin/$BASE_REF...HEAD 的改动。" \
+            --allowedTools "Skill,Read,Grep,Glob,Bash(git diff:*),Bash(git log:*),Bash(git show:*)" \
+            > review.md
+          cat review.md >> "$GITHUB_STEP_SUMMARY"
+          tail -n 1 review.md | grep -q '^GATE: PASS'
