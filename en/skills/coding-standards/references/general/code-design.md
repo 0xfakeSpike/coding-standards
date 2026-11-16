@@ -54,9 +54,7 @@ Abstract when a real second or third consumer appears.
 
 **Source:** Fowler YAGNI
 
-### Do not use patterns for their own sake [Recommended]
-
-Use design patterns to solve problems that have already appeared, not to prove a design is "proper". The indirection a pattern adds must bring real benefit.
+For when to use a design pattern and how light a form to write it in, see [design-patterns.md](design-patterns.md).
 
 ## Dependencies
 
