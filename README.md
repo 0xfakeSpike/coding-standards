@@ -59,7 +59,7 @@ Each edition has the same files. Paths below are relative to `cn/skills/coding-s
 | Languages | `references/languages/` | TypeScript, Python, Go |
 | Frontend | `references/frontend/` | Components, React, Vue, Next.js, Nuxt, CSS, state, performance, accessibility |
 | Backend | `references/backend/` | APIs, architecture, reliability, observability, data, async, security, AI apps |
-| General | `references/general/` | Design, naming, errors, refactoring, testing, Git, CI/CD, containers, releases |
+| General | `references/general/` | Design, design patterns, naming, errors, refactoring, testing, Git, CI/CD, containers, releases |
 
 The agent reads `SKILL.md` first, then only the files it needs.
 
