@@ -36,9 +36,25 @@ Use patterns to solve problems that have already appeared, not to prove a design
 
 A pattern can be written in lighter or heavier forms. Choose in this order: data (a lookup table), functions, a type with methods, a class hierarchy. Do not use a later form when an earlier one is clear enough.
 
-Prefer what the language already provides, such as first-class functions, closures, iterators, `with`, `defer` and framework middleware. Do not copy class-oriented textbook structures, such as an interface, an abstract base class and a factory for one strategy.
-
 **Example:** To compute fees by payment channel, a "channel → fee function" table is enough. You do not need a `FeeStrategy` interface, one class per channel and a factory. Turn a channel into a type only when it needs its own state and several methods.
+
+### Do not copy Java-style pattern structures [Required]
+
+When a pattern becomes code, use the idiomatic form of the language. TypeScript, Python and Go all have first-class functions, modules and closures, so the class structures that textbooks designed for Java are mostly extra layers in these languages. See each language's `patterns.md` in the language layer for the matching forms.
+
+**Signals:**
+
+- An interface with a single implementation, or paired names like `IUserService` and `UserServiceImpl`.
+- One strategy with an interface, an abstract base class, one class per case, and a factory or registry on top.
+- A singleton built with `getInstance()`.
+- `Utils`, `Helper` or `Manager` classes that hold only static methods.
+- Getters and setters that only pass a field through.
+- An abstract base class and inheritance hierarchy built to reuse a few lines.
+- A builder for an object with only a few fields.
+
+**Why:** Each extra layer of class structure makes readers jump one more time, and in these languages those layers add no guarantee.
+
+**Source:** Team
 
 ### Migrate everything when you introduce a pattern [Recommended]
 
@@ -51,7 +67,8 @@ When a new structure replaces an old approach, move all the old branches over an
 | Signal | Consider first | Lightest form |
 |---|---|---|
 | A chain of conditions only maps a key to a value or handler | Lookup table | A dictionary or map |
-| Branches on the same type field appear in several places | Organize behavior by type (strategy, polymorphism) | One function per type, kept in a map |
+| Branches on the same type field appear in several places, and types keep being added | Organize behavior by type (strategy, polymorphism) | One function per type, kept in a map |
+| The types are fixed, and the operations on them keep growing | One exhaustive branch per operation (visitor) | One function per operation, with a `switch` on the type inside |
 | Several booleans or nullable fields add up to one state, or a chain of `if` statements works out which step has been reached | State machine | One state field, with a transition table or a `switch` on the state |
 | A request passes through several steps, any of which may stop it | Pipeline, middleware (chain of responsibility) | A list of functions with the same signature |
 | Two flows differ in only one or two steps | Pass in the steps that differ (template method) | A flow function that takes function parameters |
@@ -62,6 +79,7 @@ When a new structure replaces an old approach, move all the old branches over an
 | Operations need queuing, undo, replay or auditing | Command | Represent the operation as data |
 | A tree is handled differently for single nodes and groups | Composite | Nodes and groups implement the same operations |
 | Call sites pass a string of optional parameters with unclear meaning | Options object | Named parameters or a config structure |
+| The same value is checked for null in many places | Null object, default value | A default or no-op implementation at the boundary |
 
 The table says what to consider first, not what you must use. Check each case against "A pattern must bring real benefit".
 
@@ -75,13 +93,24 @@ Do not force it into a table when each branch holds its own complex logic.
 
 **Example:** To return a message for an error code, write an "error code → message" map with a default for missing codes, not twenty `if` statements.
 
-### When branches on a type repeat, organize behavior by type [Recommended]
+### When branches on a type repeat, check whether types or operations are growing [Recommended]
 
-When the same type field is checked in two or more places and every new type means changing all of them, keep each type's behavior together: one set of functions per type, or one interface with an implementation per type. Check the type in only one place, where the value is parsed or created.
+When the same type field is checked in two or more places, first look at which side will grow:
 
-When there is only one branch point and each branch is short, keep the `switch` and make it exhaustive. See the language layer for how.
+- **Types grow, operations stay mostly fixed:** every new type means changing these branches. Keep each type's behavior together, with one set of functions per type or one interface with an implementation per type. Check the type in only one place, where the value is parsed or created.
+- **Types stay fixed, operations grow:** write one function per operation, with an exhaustive `switch` on the type inside. A new operation is one new function, and when a type is occasionally added, the compiler or linter points out every place that misses it. Do not turn this into polymorphism or visitor classes.
 
-**Example:** Pricing, display text and refund rules all branch on membership tier, so a new tier means changing three places. Instead, give each tier one set of pricing, text and refund behavior, so a new tier adds one set.
+When there is only one branch point and each branch is short, keep the `switch` and make it exhaustive.
+
+**Example:** Membership tiers change often, and pricing, display text and refund rules all branch on the tier, so a new tier means changing three places. Instead, give each tier one set of pricing, text and refund behavior, so a new tier adds one set.
+
+**Example:** Messages come in only three types, text, image and file, which rarely change, but the validation, rendering, export and moderation done on them keep growing. Write one function per operation, with a `switch` on the message type inside.
+
+### When null checks are everywhere, supply a default or no-op at the boundary [Recommended]
+
+When the same value is checked for null in many places, handle it once where it enters business code: give optional configuration a default, and give an optional dependency an implementation that does nothing, such as a logger that writes nothing or a notifier that sends nothing. Code after that no longer checks for null.
+
+Do this only when "missing" is itself a valid state. When the value should never be empty, find out why it is empty, as in "Do not patch" in [principles.md](principles.md), instead of hiding it with a default. A default must not loosen security limits, see "Make defaults safe" in [configuration.md](../backend/architecture/configuration.md).
 
 ## State
 
@@ -103,7 +132,7 @@ Either way, apply transitions in one place and reject illegal ones with an error
 
 **Example:** A file upload goes through four steps: get credentials, upload chunks, merge, verify. The procedural version decides which step to run with `if (!token)`, `if (token && !uploaded)` and `if (uploaded && !merged)` before each one. Instead, use the states "awaiting credentials, uploading, merging, verifying, done", and in a loop `switch` on the current state. Each `case` does only its own step, then returns the next state.
 
-For TypeScript, see [discriminated unions](../languages/typescript/types.md). For UI states, see [Handle all UI states](../frontend/components.md) in the frontend layer.
+For each language, see its `patterns.md` in the language layer. For UI states, see [Handle all UI states](../frontend/components.md) in the frontend layer.
 
 ## Flow
 
@@ -149,11 +178,4 @@ When the sender needs the result, or the steps must happen in order, call direct
 
 ## In the language layer
 
-When a pattern becomes code, use the idiomatic form of the language:
-
-| Case | TypeScript | Python | Go |
-|---|---|---|---|
-| Mutually exclusive states and exhaustive branches | [types.md](../languages/typescript/types.md): discriminated unions, handle every union branch | [types.md](../languages/python/types.md): enums for fixed values | [types.md](../languages/go/types.md): named type with iota |
-| Describing required capabilities | Structural typing, declare interfaces as needed | [types.md](../languages/python/types.md): describe required capabilities with Protocol | [types.md](../languages/go/types.md): define interfaces on the consumer side |
-| Optional parameters | [idioms.md](../languages/typescript/idioms.md): object parameters when the call site is unclear | [idioms.md](../languages/python/idioms.md): keyword-only arguments | [types.md](../languages/go/types.md): config struct or functional options |
-| Functions first | [idioms.md](../languages/typescript/idioms.md): no pointless wrappers | [idioms.md](../languages/python/idioms.md): no class when a function will do | [types.md](../languages/go/types.md): no thin shell types or forwarding functions |
+The matching forms for each language: [TypeScript](../languages/typescript/patterns.md), [Python](../languages/python/patterns.md), [Go](../languages/go/patterns.md).
