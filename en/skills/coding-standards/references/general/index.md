@@ -6,7 +6,7 @@ This layer contains only content independent of both language and domain.
 
 | File | Read when |
 |---|---|
-| [principles.md](principles.md) | Overall team principles, simple design, functions, comments |
+| [principles.md](principles.md) | Overall team principles, branches that can never run, simple design, functions, comments |
 | [code-design.md](code-design.md) | Judging whether a design is sound, where a change goes, whether a wrapper is needed |
 | [design-patterns.md](design-patterns.md) | Code reads as convoluted, branches repeat in several places, state is inferred from flags or a chain of conditions, or you are deciding whether to use a design pattern. For each language's forms, see `patterns.md` in the language layer |
 | [responsibilities.md](responsibilities.md) | Module boundaries, duplicate implementations, coupling, call sites |
