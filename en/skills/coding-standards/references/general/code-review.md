@@ -46,8 +46,6 @@ Do not chase perfection, but do not merge changes that clearly worsen code healt
 
 ### Review in priority order [Recommended]
 
-**Applies to:** team project
-
 1. Design: whether responsibilities and layers are sound, and whether the change is in the best location.
 2. Functionality: logic, edge cases, and concurrency.
 3. Security: permissions, input, and sensitive data.

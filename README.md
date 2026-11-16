@@ -61,7 +61,7 @@ Each edition has the same files. Paths below are relative to `cn/skills/coding-s
 | Backend | `references/backend/` | APIs, architecture, reliability, observability, data, async, security, AI apps |
 | General | `references/general/` | Design, design patterns, naming, errors, refactoring, testing, Git, CI/CD, containers, releases |
 
-The agent reads `SKILL.md` first, then only the files it needs.
+The agent reads `SKILL.md` first, then only the files it needs. To check a whole project rather than a change, it follows `references/audit.md`: it maps what the project contains to rule files, checks security and data first, and filters by rule titles before reading rule bodies.
 
 ## How rules work
 
