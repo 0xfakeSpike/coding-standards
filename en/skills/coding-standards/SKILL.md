@@ -61,6 +61,7 @@ All code:
 - Once you confirm nothing uses it, delete unused code and content. When it is unrelated to the current task, list it in your report and ask first, then handle it on a separate branch once authorized. Ask the user first about production data and anything unrecoverable.
 - Keep one copy of each thing.
 - Do not add wrappers without a purpose.
+- Do not write branches that can never run: no leftover checks from old logic, no compatibility for old data that does not exist, no repeated defense of conditions that types or upstream code already guarantee.
 - Write design patterns in the idiomatic form of the language. Do not copy Java-style interfaces, abstract classes, factories and singletons.
 - Do not add fallback paths or scheduled compensation for rare failures with acceptable consequences, and do not add features the user did not ask for. Assess cases involving money or data loss separately, and tell the user first when one is truly needed.
 - Comments record only reasons the code cannot express, such as external system limits, counter-intuitive behavior, and single-point trade-offs, not what the code does. Put notes that span several places in the code in project docs. Exceptions are license headers and API docs for public libraries.

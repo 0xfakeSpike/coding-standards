@@ -48,7 +48,7 @@ When it truly cannot be handled right away, record it as described in [Record to
 | Overlong function | Extract by responsibility |
 | Too many parameters | Introduce a meaningful data structure |
 | Function that only forwards a call | Inline and delete |
-| Condition that always takes the same branch | Delete the dead branch |
+| Condition that always takes the same branch, branch that can never run | Delete it, see "Do not write branches that can never run" in [principles.md](principles.md) |
 | Branches on a type repeated in several places, state inferred from flags or a chain of conditions | Switch to a fitting structure, see [design-patterns.md](design-patterns.md) |
 | Configuration no longer used | Delete |
 | Code that takes explaining to understand | Improve naming and structure |

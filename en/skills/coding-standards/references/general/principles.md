@@ -28,6 +28,22 @@ For rare scenarios with acceptable consequences, do not add a mechanism to handl
 
 **Source:** Team
 
+### Do not write branches that can never run [Required]
+
+Write only branches that can really be entered. To check, say what input or state enters the branch. If you cannot, delete it. Three kinds are common:
+
+- **Leftovers of old logic:** after the data flow or the callers change, an old condition can no longer be true. When you make a change, follow the callers and data sources to find branches that can no longer run, and delete them too, see [deletion.md](deletion.md).
+- **Transitional design:** compatibility branches kept "in case old data or old clients are still around". Write them only when old data or old callers are confirmed to exist, record the removal condition in a ticket or the project docs, and delete them once it is met. If none are confirmed, do not write them. For flags used during a transition, see "Delete old-to-new switchover flags once the switch is complete" in [configuration.md](../backend/architecture/configuration.md).
+- **Over-defense:** checking again a condition that types, upstream validation or an invariant already guarantee. Examples are a null check on a non-nullable type, validating inside a value already validated at the boundary, catching an exception that cannot be thrown, and a fallback that returns a default for a state that cannot occur.
+
+For something that should never happen and is a defect when it does, do not write a silent fallback. Let it fail, as in "Surface errors immediately" in [error-handling.md](error-handling.md), for example by throwing in the fallback branch of an exhaustive `switch`. External input is still validated at the boundary.
+
+**Why:** A branch that can never run makes readers believe the case happens, so they reason about it and maintain it. A silent fallback also hides real defects.
+
+**Example:** The API layer has already validated the order amount as a positive integer, and the service layer adds "if the amount is zero or less, return 0". That branch can never run, so delete it. If another entry point might pass an invalid value, route that entry point through the same validation instead of adding a check inside.
+
+**Source:** Team
+
 ### Do not build for hypothetical needs [Recommended]
 
 Build only what is needed now. Do not reserve extension points that have no consumer.

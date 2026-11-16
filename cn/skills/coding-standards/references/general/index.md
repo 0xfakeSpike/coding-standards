@@ -6,7 +6,7 @@
 
 | 文件 | 何时读取 |
 |---|---|
-| [principles.md](principles.md) | 团队总体原则、简单设计、函数、注释 |
+| [principles.md](principles.md) | 团队总体原则、走不到的分支、简单设计、函数、注释 |
 | [code-design.md](code-design.md) | 判断设计是否合理、改动放在哪里、是否需要封装 |
 | [design-patterns.md](design-patterns.md) | 代码读起来绕、条件分支多处重复、状态靠多个标志或一串条件推断，或者考虑要不要用某个设计模式。各语言的写法见语言层的 `patterns.md` |
 | [responsibilities.md](responsibilities.md) | 模块边界、重复实现、耦合、调用点 |
