@@ -8,7 +8,7 @@ This layer contains only content independent of both language and domain.
 |---|---|
 | [principles.md](principles.md) | Overall team principles, simple design, functions, comments |
 | [code-design.md](code-design.md) | Judging whether a design is sound, where a change goes, whether a wrapper is needed |
-| [design-patterns.md](design-patterns.md) | Code reads as convoluted, branches repeat in several places, state is pieced together from flags, or you are deciding whether to use a design pattern |
+| [design-patterns.md](design-patterns.md) | Code reads as convoluted, branches repeat in several places, state is inferred from flags or a chain of conditions, or you are deciding whether to use a design pattern |
 | [responsibilities.md](responsibilities.md) | Module boundaries, duplicate implementations, coupling, call sites |
 | [naming.md](naming.md) | Naming things |
 | [error-handling.md](error-handling.md) | Designing error handling |
