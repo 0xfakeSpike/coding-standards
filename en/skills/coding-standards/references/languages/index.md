@@ -15,6 +15,7 @@ Every language directory contains the following files:
 | `style.md` | Tool configuration, formatting, naming, imports |
 | `types.md` | Type design |
 | `idioms.md` | Language idioms |
+| `patterns.md` | How design patterns are written in this language |
 | `errors.md` | Error and exception handling |
 | `concurrency.md` | Async and concurrency |
 | `project.md` | Project structure, dependencies, and builds |

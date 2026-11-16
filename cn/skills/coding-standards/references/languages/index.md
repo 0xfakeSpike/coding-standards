@@ -15,6 +15,7 @@
 | `style.md` | 工具配置、格式、命名、导入 |
 | `types.md` | 类型设计 |
 | `idioms.md` | 语言惯用法 |
+| `patterns.md` | 设计模式在这门语言里的写法 |
 | `errors.md` | 错误和异常处理 |
 | `concurrency.md` | 异步和并发 |
 | `project.md` | 项目结构、依赖和构建 |
