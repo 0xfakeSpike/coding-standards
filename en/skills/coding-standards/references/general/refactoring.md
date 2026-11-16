@@ -49,6 +49,6 @@ When it truly cannot be handled right away, record it as described in [Record to
 | Too many parameters | Introduce a meaningful data structure |
 | Function that only forwards a call | Inline and delete |
 | Condition that always takes the same branch | Delete the dead branch |
-| Branches on a type repeated in several places, state pieced together from flags | Switch to a fitting structure, see [design-patterns.md](design-patterns.md) |
+| Branches on a type repeated in several places, state inferred from flags or a chain of conditions | Switch to a fitting structure, see [design-patterns.md](design-patterns.md) |
 | Configuration no longer used | Delete |
 | Code that takes explaining to understand | Improve naming and structure |

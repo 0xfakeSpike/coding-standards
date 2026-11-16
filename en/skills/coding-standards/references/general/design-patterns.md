@@ -14,7 +14,7 @@ When writing or reviewing code, if a piece of code makes you jump back and forth
 
 - The same set of branches on a type or state appears in several places.
 - Adding a type or a step means changing conditions in several places.
-- Understanding a function means keeping a combination of several flags in your head.
+- Understanding a function means keeping a combination of several flags in your head, or working out from a chain of conditions which step it has reached.
 - The main flow is buried under precondition checks, logging, retries and other code unrelated to the business logic.
 
 **Source:** Team
@@ -52,7 +52,7 @@ When a new structure replaces an old approach, move all the old branches over an
 |---|---|---|
 | A chain of conditions only maps a key to a value or handler | Lookup table | A dictionary or map |
 | Branches on the same type field appear in several places | Organize behavior by type (strategy, polymorphism) | One function per type, kept in a map |
-| Several booleans or nullable fields add up to one state | State machine | One state field and a transition table |
+| Several booleans or nullable fields add up to one state, or a chain of `if` statements works out which step has been reached | State machine | One state field, with a transition table or a `switch` on the state |
 | A request passes through several steps, any of which may stop it | Pipeline, middleware (chain of responsibility) | A list of functions with the same signature |
 | Two flows differ in only one or two steps | Pass in the steps that differ (template method) | A flow function that takes function parameters |
 | Logging, timing, retries or permission checks are copied into many functions | Decorator, middleware | A wrapper function |
@@ -85,11 +85,23 @@ When there is only one branch point and each branch is short, keep the `switch` 
 
 ## State
 
-### Use a state machine when several flags add up to one state [Recommended]
+### Use a state machine when state is inferred from flags or conditions [Recommended]
 
-When an object's lifecycle is pieced together from several booleans or nullable fields (`isPaid`, `isShipped`, `canceledAt`), illegal combinations appear and the checks spread everywhere. Use one state field instead, and list the allowed transitions in a table: current state plus event gives the next state. Apply transitions in one place and reject illegal ones with an error.
+Either of these means a state machine is missing:
+
+- An object's lifecycle is pieced together from several booleans or nullable fields (`isPaid`, `isShipped`, `canceledAt`). Illegal combinations appear and the checks spread everywhere.
+- Procedural code uses a chain of `if` statements to work out which step it has reached. Readers have to piece all the conditions together to see the flow, and every new step means changing the conditions before it.
+
+Use one explicit state field instead, and choose the form by case:
+
+- **Transition table:** when moving between states is only a mapping of "current state plus event gives the next state", list the allowed transitions in a table.
+- **`switch` on the state:** when each state has its own handling logic, `switch` on the state. Each `case` handles only one state, does that step's work and returns the next state. Make the branches exhaustive, as shown in the language layer.
+
+Either way, apply transitions in one place and reject illegal ones with an error.
 
 **Example:** An order can be canceled only while awaiting payment. Write one entry in the transition table, "awaiting payment + cancel → canceled", instead of repeating `!isShipped && !isCanceled` in the cancel button, the API and the scheduled job.
+
+**Example:** A file upload goes through four steps: get credentials, upload chunks, merge, verify. The procedural version decides which step to run with `if (!token)`, `if (token && !uploaded)` and `if (uploaded && !merged)` before each one. Instead, use the states "awaiting credentials, uploading, merging, verifying, done", and in a loop `switch` on the current state. Each `case` does only its own step, then returns the next state.
 
 For TypeScript, see [discriminated unions](../languages/typescript/types.md). For UI states, see [Handle all UI states](../frontend/components.md) in the frontend layer.
 
