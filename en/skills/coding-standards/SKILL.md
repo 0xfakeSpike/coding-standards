@@ -1,13 +1,13 @@
 ---
 name: coding-standards
-description: Team coding standards handbook. Use before writing, changing, refactoring, debugging, or reviewing code, and when designing APIs and table schemas, writing tests, committing, and reviewing changes. Not for tasks unrelated to development.
+description: Team coding standards handbook. Use before writing, changing, refactoring, debugging, or reviewing code, and when checking a whole project for problems, designing APIs and table schemas, writing tests, committing, and reviewing changes. Not for tasks unrelated to development.
 ---
 
 # Coding Standards
 
 Detailed rules live under `references/`. Read the `index.md` of the relevant layer first, then pick files.
 
-**Limit how much you read:** a task usually needs 3 to 6 rule files, chosen because they relate directly to the current change. Do not read every file in an index for completeness. Start work once you have read enough. A topic you have not read does not mean there is no rule for it. Read it when a related question comes up.
+**Limit how much you read:** a task usually needs 3 to 6 rule files, chosen because they relate directly to the current change. Do not read every file in an index for completeness. Start work once you have read enough. A topic you have not read does not mean there is no rule for it. Read it when a related question comes up. Checking a whole project is not bound by this limit. Read in the order given in [audit.md](references/audit.md).
 
 | Layer | Question it answers | Entry point |
 |---|---|---|
@@ -83,10 +83,10 @@ Backend:
 
 ## Review workflow
 
-When the user asks for a review against these standards, follow these steps. The longer the context, the more problems get missed, so review in slices: first collect candidate problems, then verify them one by one.
+When the user asks for a review of a change against these standards, follow these steps. To check a whole project or directory for existing problems, follow [audit.md](references/audit.md) instead. The longer the context, the more problems get missed, so review in slices: first collect candidate problems, then verify them one by one.
 
 1. **Slice the change.** Look at the list of changes first, and split it into slices by module or layer. A small change in one module needs only one slice. Split when the change is over about 500 lines or spans several modules. For a high-risk change, add one more slice for a dedicated security review.
-2. **Collect candidates slice by slice.** For each slice, read only that slice's code and the rule files that relate to it directly. Do not read every rule file first and then all the code. Note everything suspicious, with `path:line`, the suspected problem, and the matching rule. At this step, prefer too many over too few, and do not draw conclusions yet.
+2. **Collect candidates slice by slice.** For each slice, read only that slice's code and the rule files that relate to it directly. Do not read every rule file first and then all the code. Look in the order of "Review in priority order" in [code-review.md](references/general/code-review.md): design and functionality first, style last. Note everything suspicious, with `path:line`, the suspected problem, and the matching rule. At this step, prefer too many over too few, and do not draw conclusions yet.
    - If you can use subagents, give each slice to one subagent with only that slice's files and rule file paths, and have it return a candidate list.
    - If you cannot, work through the slices in order. Write the candidate list down as you go, in a scratch file if needed, instead of relying on memory of code you read earlier.
 3. **Verify each candidate.** For each candidate, reopen the relevant code and the rule text, and check callers and context when needed:
